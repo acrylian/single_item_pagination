@@ -21,19 +21,19 @@
  * Add the function printPrevNextItemPageListWithNav('page')
  * This has no standard equivalent function and lets you move through all the pages on the same level.
  *
- * Requirements: Theme with Zenpage plugin support and the Zenpage plugin being enabled.
+ * Requirements c) und d): Theme with Zenpage plugin support and the Zenpage plugin being enabled.
  *
  * @author Malte Müller (acrylian)
  * @package plugins
  */
 
-$plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images,albums,Zenpage articles).');
+$plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
 $plugin_author = "Malte Müller (acrylian)";
 $plugin_version = '1.4.3';
 
 /**
  * Prints the single image page navigation with prev/next links and the page number list
- * @param string $mode 'image', 'album' or 'article'
+ * @param string $mode 'image', 'album' or for the Zenpage CMS plugin 'article', 'page'
  * @param string $next The next page link text
  * @param string $prev The prev page link text
  * @param bool $nextprev If the prev/next links should be printed
@@ -45,6 +45,10 @@ $plugin_version = '1.4.3';
  */
 function printPrevNextItemPagelistWithNav($mode='image',$next,$prev,$nextprev=true, $class='pagelist',$firstlast=true, $navlen=7) {
 	global $_zp_gallery,$_zp_gallery_page, $_zp_zenpage, $_zp_current_zenpage_news, $_zp_current_zenpage_page,$_zp_current_album, $_zp_current_image, $_zp_current_search;
+	if(($mode = 'news' || $mode = 'page') && !getOption('zp_plugin_zenpage')) {
+		echo '<p><strong>The Zenpage CMS plugin is required for this and not enabled!</strong></p>';
+		break;
+	}
 	// set mode automatically
 	switch($mode) {
 		case 'image':
