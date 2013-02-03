@@ -210,7 +210,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next,$prev,$nextprev=tr
 				switch($mode) {
 					case 'image':
 						if(!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED)) {
-							$image = 	$_zp_current_search->getImage(0);
+							$image = $_zp_current_search->getImage(0);
 							$link = $image->getImageLink();
 						} else {
 							$image = $_zp_current_album->getImage(0);
@@ -276,9 +276,11 @@ function printPrevNextItemPagelistWithNav($mode='image',$next,$prev,$nextprev=tr
 							$link = $img->getImageLink();
 						} else {
 							if($i == 1) {
-								$imglink = getFirstImageURL();
+								$image = $_zp_current_album->getImage(0);
+								$link = $image->getImageLink();
 							} else if ($i == $total) {
-								$link = getLastImageURL();
+								$image = $_zp_current_album->getImage($_zp_current_album->getNumImages() - 1);
+								$link = $image->getImageLink();
 							} else {
 								$image = $_zp_current_album->getImage($i-1);
 								$link = $image->getImageLink();
