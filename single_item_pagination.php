@@ -29,7 +29,7 @@
 
 $plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.4.3';
+$plugin_version = '1.4.4';
 
 /**
  * Prints the single image page navigation with prev/next links and the page number list
@@ -43,9 +43,9 @@ $plugin_version = '1.4.3';
  *
  * @return string
  */
-function printPrevNextItemPagelistWithNav($mode='image',$next,$prev,$nextprev=true, $class='pagelist',$firstlast=true, $navlen=7) {
+function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev',$nextprev=true, $class='pagelist',$firstlast=true, $navlen=7) {
 	global $_zp_gallery,$_zp_gallery_page, $_zp_zenpage, $_zp_current_zenpage_news, $_zp_current_zenpage_page,$_zp_current_album, $_zp_current_image, $_zp_current_search;
-	if(($mode = 'news' || $mode = 'page') && !getOption('zp_plugin_zenpage')) {
+	if(($mode == 'news' || $mode == 'page') && !getOption('zp_plugin_zenpage')) {
 		echo '<p><strong>The Zenpage CMS plugin is required for this and not enabled!</strong></p>';
 		break;
 	}
@@ -104,6 +104,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next,$prev,$nextprev=tr
 			}
 			break;
 		case 'page':
+
 			if($_zp_current_zenpage_page->getParentID()) {
 				$parents = $_zp_current_zenpage_page->getParents();
 				$parents = array_reverse($parents); // reverse so the parent we want is always index 0
