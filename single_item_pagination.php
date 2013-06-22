@@ -25,6 +25,7 @@
  *
  * @author Malte Müller (acrylian)
  * @package plugins
+ * @subpackage media
  */
 
 $plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
