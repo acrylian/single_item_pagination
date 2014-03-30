@@ -141,17 +141,17 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 			$prev = $current - 1;
 			$prevpage = '';
 			if($prev > 0) {
-				$pagelink = getPageLinkURL($title[$prev]);
+				$pagelink = getPageURL($title[$prev]);
 				$pagetitle = $title[$prev];
-				$prevpage = getPageLinkURL($titlelink[$prev]);
+				$prevpage = getPageURL($titlelink[$prev]);
 			}
 			// next article url
 			$next = $current + 1;
 			$nextpage = '';
 			if($next <= $count){
-				$pagelink = getPageLinkURL($title[$next]);
+				$pagelink = getPageURL($title[$next]);
 				$pagetitle = $title[$next];
-				$nextpage = getPageLinkURL($titlelink[$next]);
+				$nextpage = getPageURL($titlelink[$next]);
 			}
 			break;
 	}
@@ -179,7 +179,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 				if($current != 1) {
 					$hasprev = true;
 					$obj = $_zp_current_album->getPrevAlbum();
-					$link = $obj->getAlbumLink();
+					$link = $obj->getLink();
 				}
 				break;
 			case 'article':
@@ -213,23 +213,23 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 					case 'image':
 						if(!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED)) {
 							$image = $_zp_current_search->getImage(0);
-							$link = $image->getImageLink();
+							$link = $image->getLink();
 						} else {
 							$image = $_zp_current_album->getImage(0);
-							$link = $image->getImageLink();
+							$link = $image->getLink();
 							
 						}
 						break;
 					case 'album':
 						$firstalbum = $albums[0];
-						$obj = new Album($_zp_gallery,$firstalbum);
-						$link = $obj->getAlbumLink();
+						$obj = newAlbum($firstalbum);
+						$link = $obj->getLink();
 						break;
 					case 'article':
 						$link = getNewsURL($titlelink[1]);
 						break;
 					case 'page':
-						$link = getPageLinkURL($titlelink[1]);
+						$link = getPageURL($titlelink[1]);
 						break;
 				}
 				
@@ -243,22 +243,22 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 					case 'image':
 						if(!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED)) {
 							$img = $_zp_current_search->getImage($k1-1);
-							$link = $img->getImageLink();
+							$link = $img->getLink();
 						} else {
 							$image = $_zp_current_album->getImage($k1-1);
-							$link = $image->getImageLink();
+							$link = $image->getLink();
 						}
 						break;
 					case 'album':
 						$album = $albums[$k1-1];
 						$obj = new Album($_zp_gallery,$album);
-						$link = $obj->getAlbumLink();
+						$link = $obj->getLink();
 						break;
 					case 'article':
 						$link = getNewsURL($titlelink[$k1]);
 						break;
 					case 'page':
-						$link = getPageLinkURL($titlelink[$k1]);
+						$link = getPageURL($titlelink[$k1]);
 						break;
 				}
 				
@@ -275,17 +275,17 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 					case 'image':
 						if(!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED)) {
 							$img = $_zp_current_search->getImage($i-1);
-							$link = $img->getImageLink();
+							$link = $img->getLink();
 						} else {
 							if($i == 1) {
 								$image = $_zp_current_album->getImage(0);
-								$link = $image->getImageLink();
+								$link = $image->getLink();
 							} else if ($i == $total) {
 								$image = $_zp_current_album->getImage($_zp_current_album->getNumImages() - 1);
-								$link = $image->getImageLink();
+								$link = $image->getLink();
 							} else {
 								$image = $_zp_current_album->getImage($i-1);
-								$link = $image->getImageLink();
+								$link = $image->getLink();
 							}
 						}				
 						break;
@@ -302,7 +302,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 						}
 						break;
 					case 'page':
-						$link = getPageLinkURL($titlelink[$i]);
+						$link = getPageURL($titlelink[$i]);
 						break;
 				}
 				
@@ -317,22 +317,22 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 				case 'image':
 					if(!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED)) {
 						$img = $_zp_current_search->getImage($k2-1);
-						$link = $img->getImageLink();
+						$link = $img->getLink();
 					} else {
 						$image = $_zp_current_album->getImage($k2-1);
-						$link = $image->getImageLink();
+						$link = $image->getLink();
 					}
 					break;
 				case 'album':
 					$album = $albums[$k2-1];
 					$obj = new Album($_zp_gallery,$album);
-					$link = $obj->getAlbumLink();
+					$link = $obj->getLink();
 					break;
 				case 'article':
 					$link = getNewsURL($titlelink[$k2]);
 					break;
 				case 'page':
-					$link = getPageLinkURL($titlelink[$k2]);
+					$link = getPageURL($titlelink[$k2]);
 					break;
 			}
 			echo "<a href='".html_encode($link)."' title='".sprintf(ngettext('Image %u','Page %u',$k2),$k2)."'>".$linktext."</a>\n";
@@ -347,22 +347,22 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 					case 'image':
 						if($_zp_current_album->isDynamic()) {
 							$img = 	$_zp_current_search->getImage($total-1);
-							$link = $img->getImageLink();
+							$link = $img->getLink();
 						} else {
 							$img = $_zp_current_album->getImage($_zp_current_album->getNumImages() - 1);
-							$link = $img->getImageLink();
+							$link = $img->getLink();
 						}
 						break;
 					case 'album':
 						$album = $albums[($total-1)];
 						$obj = new Album($_zp_gallery,$album);
-						$link = $obj->getAlbumLink();
+						$link = $obj->getLink();
 						break;
 					case 'article':
 						$link = getNewsURL($titlelink[$total]);
 						break;
 					case 'page':
-						$link = getPageLinkURL($titlelink[$total]);
+						$link = getPageURL($titlelink[$total]);
 						break;
 				}
 				echo "<a href=\"".html_encode($link)."\" title=\"".sprintf(ngettext('Image {%u}','Page {%u}',$total),$total)."\">".$total."</a>";
@@ -384,7 +384,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 					$hasnext = true;
 					$album = $albums[$current];
 					$obj = new Album($_zp_gallery,$album);
-					$link = $obj->getAlbumLink();
+					$link = $obj->getLink();
 				}
 				break;
 			case 'article':
