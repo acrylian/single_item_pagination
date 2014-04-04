@@ -30,7 +30,7 @@
 
 $plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.0';
+$plugin_version = '1.0.1';
 
 /**
  * Prints the single image page navigation with prev/next links and the page number list
@@ -251,7 +251,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 						break;
 					case 'album':
 						$album = $albums[$k1-1];
-						$obj = new Album($_zp_gallery,$album);
+						$obj = newAlbum($album);
 						$link = $obj->getLink();
 						break;
 					case 'article':
@@ -291,8 +291,8 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 						break;
 					case 'album':
 						$album = $albums[$i-1];
-						$obj = new Album($_zp_gallery,$album);
-						$link = $obj->getAlbumLink();
+						$obj = newAlbum($album);
+						$link = $obj->getLink();
 						break;
 					case 'article':
 						if($i == 1 AND getOption("zenpage_zp_index_news")) {
@@ -325,7 +325,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 					break;
 				case 'album':
 					$album = $albums[$k2-1];
-					$obj = new Album($_zp_gallery,$album);
+					$obj = newAlbum($album);
 					$link = $obj->getLink();
 					break;
 				case 'article':
@@ -346,7 +346,8 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 				switch($mode) {
 					case 'image':
 						if($_zp_current_album->isDynamic()) {
-							$img = 	$_zp_current_search->getImage($total-1);
+							$imgindex = $total-1;
+							$img = 	$_zp_current_album->getImage($imgindex);
 							$link = $img->getLink();
 						} else {
 							$img = $_zp_current_album->getImage($_zp_current_album->getNumImages() - 1);
@@ -355,7 +356,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 						break;
 					case 'album':
 						$album = $albums[($total-1)];
-						$obj = new Album($_zp_gallery,$album);
+						$obj = newAlbum($album);
 						$link = $obj->getLink();
 						break;
 					case 'article':
@@ -383,7 +384,7 @@ function printPrevNextItemPagelistWithNav($mode='image',$next='next',$prev='prev
 				if($current != $total) {
 					$hasnext = true;
 					$album = $albums[$current];
-					$obj = new Album($_zp_gallery,$album);
+					$obj = newAlbum($album);
 					$link = $obj->getLink();
 				}
 				break;
