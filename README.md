@@ -1,6 +1,6 @@
 Single item pagination
 ======================
-A Zenphoto plugin to provide extra functionality for numbererd pagelist of single gallery items (single image, album and Zenpage news article and pages). Similar to the standard template function `printPagelistWithNav()` or Zenpage's `printZenpagePagelistWithNav()`:
+A [Zenphoto](http://www.zenphoto.org) plugin to provide extra functionality for numbererd pagelist of single gallery items (single image, album and Zenpage news article and pages). Similar to the standard template function `printPagelistWithNav()` or Zenpage's `printZenpagePagelistWithNav()`:
 `Example: prev 1 2 3 4 next`
 
 Put the file in your `/plugins` folder and modify your theme to use it. 
