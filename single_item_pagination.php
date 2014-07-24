@@ -24,6 +24,7 @@
  * Requirements c) und d): Theme with Zenpage plugin support and the Zenpage plugin being enabled.
  *
  * @author Malte Müller (acrylian) <info@maltem.de>
+ * @copyright 2014 Malte Müller
  * @license GPL v3 or later
  * @package plugins
  * @subpackage media
