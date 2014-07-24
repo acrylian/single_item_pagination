@@ -23,14 +23,15 @@
  *
  * Requirements c) und d): Theme with Zenpage plugin support and the Zenpage plugin being enabled.
  *
- * @author Malte Müller (acrylian)
+ * @author Malte Müller (acrylian) <info@maltem.de>
+ * @license GPL v3 or later
  * @package plugins
  * @subpackage media
  */
 
 $plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.0.1';
+$plugin_version = '1.0.2';
 
 /**
  * Prints the single image page navigation with prev/next links and the page number list
