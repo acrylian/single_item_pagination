@@ -32,7 +32,7 @@
  */
 $plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.0.3';
+$plugin_version = '1.0.2';
 
 /**
  * Prints the single image page navigation with prev/next links and the page number list
