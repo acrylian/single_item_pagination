@@ -25,20 +25,20 @@
  * Requirements c) und d): Theme with Zenpage plugin support and the Zenpage plugin being enabled.
  *
  * @author Malte Müller (acrylian) <info@maltem.de>
- * @copyright 2015 Malte Müller
+ * @copyright 2018 Malte Müller
  * @license GPL v3 or later
  * @package plugins
  * @subpackage media
  */
 $plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.0.2';
+$plugin_version = '1.1';
 
 /**
  * Prints the single image page navigation with prev/next links and the page number list
  * @param string $mode 'image', 'album' or for the Zenpage CMS plugin 'article', 'page'
- * @param string $next The next page link text
  * @param string $prev The prev page link text
+ * @param string $next The next page link text
  * @param bool $nextprev If the prev/next links should be printed
  * @param string $class The CSS class for the disabled link
  * @param bool $firstlast If the first/last links should be printed
@@ -46,7 +46,7 @@ $plugin_version = '1.0.2';
  *
  * @return string
  */
-function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev = 'prev', $nextprev = true, $class = 'pagelist', $firstlast = true, $navlen = 7) {
+function printPrevNextItemPagelistWithNav($mode = 'image', $prevtext = 'prev', $nexttext = 'next', $nextprev = true, $class = 'pagelist', $firstlast = true, $navlen = 7) {
 	global $_zp_gallery, $_zp_gallery_page, $_zp_zenpage, $_zp_current_zenpage_news, $_zp_current_zenpage_page, $_zp_current_album, $_zp_current_image, $_zp_current_search;
 	switch ($mode) {
 		case 'image':
@@ -163,7 +163,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 		$ilim = min($total, max($navlen - round($extralinks / 2), $current + floor($len)));
 		$k1 = round(($j - 2) / 2) + 1;
 		$k2 = $total - round(($total - $ilim) / 2);
-		echo "<ul class=\"$class\">";
+		echo '<ul class="'. $class.'">';
 		$hasprev = false;
 		$link = '';
 		switch ($mode) {
@@ -194,11 +194,11 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 				break;
 		}
 		if ($nextprev) {
-			echo "<li class=\"prev\">";
+			echo '<li class="prev">';
 			if ($hasprev) {
-				echo "<a href=\"" . html_encode($link) . "\">&laquo; " . gettext("prev") . "</a>";
+				echo '<a href="'. html_encode($link) . '">' . html_encode($prevtext) . '</a>';
 			} else {
-				echo "<span class=\"disabledlink\">&laquo; " . gettext("prev") . "</span>\n";
+				echo '<span class="disabledlink">' . html_encode($prevtext) . '</span>'. "\n";
 			}
 			echo "</li>\n";
 		}
@@ -229,7 +229,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 						$link = getPageURL($titlelink[1]);
 						break;
 				}
-				echo "<a href='" . html_encode($link) . "' title='" . gettext("Page") . " 1'>1</a>\n";
+				echo '<a href="' . html_encode($link) . '" title="' . gettext("Page") . ' 1">1</a>'."\n";
 			}
 			echo "</li>\n";
 			if ($j > 2) {
@@ -257,7 +257,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 						$link = getPageURL($titlelink[$k1]);
 						break;
 				}
-				echo "<a href=\"" . html_encode($link) . "\" title=\"" . sprintf(ngettext('Image %u', 'Page %u', $k1), $k1) . "\">" . $linktext . "</a>";
+				echo '<a href="' . html_encode($link) . '" title="' . sprintf(ngettext('Image %u', 'Page %u', $k1), $k1) . '">' . html_encode($linktext) . '</a>';
 				echo "</li>\n";
 			}
 		} // firstlast end
@@ -305,7 +305,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 			echo "</li>\n";
 		}
 		if ($i < $total) {
-			echo "<li>";
+			echo '<li>';
 			$linktext = ($total - $i > 1) ? '...' : $k2;
 			switch ($mode) {
 				case 'image':
@@ -329,11 +329,11 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 					$link = getPageURL($titlelink[$k2]);
 					break;
 			}
-			echo "<a href='" . html_encode($link) . "' title='" . sprintf(ngettext('Image %u', 'Page %u', $k2), $k2) . "'>" . $linktext . "</a>\n";
+			echo '<a href="' . html_encode($link) . '" title="' . sprintf(ngettext('Image %u', 'Page %u', $k2), $k2) . '">' . html_encode($linktext) . '</a>'. "\n";
 			echo "</li>\n";
 		}
 		if ($firstlast && $i <= $total) {
-			echo "\n  <li class=\"last\">";
+			echo "\n" . '<li class="last">';
 			if ($current == $total) {
 				echo $total;
 			} else {
@@ -360,11 +360,11 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 						$link = getPageURL($titlelink[$total]);
 						break;
 				}
-				echo "<a href=\"" . html_encode($link) . "\" title=\"" . sprintf(ngettext('Image {%u}', 'Page {%u}', $total), $total) . "\">" . $total . "</a>";
+				echo '<a href="' . html_encode($link) . '" title="' . sprintf(ngettext('Image {%u}', 'Page {%u}', $total), $total) . '">' . $total . '</a>';
 			}
-			echo "</li>";
+			echo '</li>';
 		}
-		echo "\n  <li class=\"next\">";
+		echo "\n" . '<li class="next">';
 		$hasnext = false;
 		$link = '';
 		switch ($mode) {
@@ -396,13 +396,11 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $next = 'next', $prev
 				break;
 		}
 		if ($hasnext) {
-			echo "<a href=\"" . html_encode($link) . "\">" . gettext("next") . " &raquo;</a>";
+			echo '<a href="' . html_encode($link) . '">' . $nexttext . '</a>';
 		} else {
-			echo "<span class=\"disabledlink\">" . gettext("next") . " &raquo;</span>\n";
+			echo '<span class="disabledlink">' . $nexttext . '</span>'."\n";
 		}
 		echo "</li>\n";
-		echo "</ul>";
+		echo '</ul>';
 	}
 }
-
-?>
