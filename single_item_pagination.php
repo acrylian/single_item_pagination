@@ -32,7 +32,7 @@
  */
 $plugin_description = gettext('Provides extra functionality for numbered pagination of single items (images, albums, Zenpage articles and pages).');
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.1';
+$plugin_version = '1.2';
 
 /**
  * Prints the single image page navigation with prev/next links and the page number list
@@ -219,7 +219,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $prevtext = 'prev', $
 						break;
 					case 'album':
 						$firstalbum = $albums[0];
-						$obj = newAlbum($firstalbum);
+						$obj = Albumbase::newAlbum($firstalbum);
 						$link = $obj->getLink();
 						break;
 					case 'article':
@@ -247,7 +247,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $prevtext = 'prev', $
 						break;
 					case 'album':
 						$album = $albums[$k1 - 1];
-						$obj = newAlbum($album);
+						$obj = Albumbase::newAlbum($album);
 						$link = $obj->getLink();
 						break;
 					case 'article':
@@ -286,7 +286,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $prevtext = 'prev', $
 						break;
 					case 'album':
 						$album = $albums[$i - 1];
-						$obj = newAlbum($album);
+						$obj = Albumbase::newAlbum($album);
 						$link = $obj->getLink();
 						break;
 					case 'article':
@@ -319,7 +319,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $prevtext = 'prev', $
 					break;
 				case 'album':
 					$album = $albums[$k2 - 1];
-					$obj = newAlbum($album);
+					$obj = Albumbase::newAlbum($album);
 					$link = $obj->getLink();
 					break;
 				case 'article':
@@ -350,7 +350,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $prevtext = 'prev', $
 						break;
 					case 'album':
 						$album = $albums[($total - 1)];
-						$obj = newAlbum($album);
+						$obj = Albumbase::newAlbum($album);
 						$link = $obj->getLink();
 						break;
 					case 'article':
@@ -378,7 +378,7 @@ function printPrevNextItemPagelistWithNav($mode = 'image', $prevtext = 'prev', $
 				if ($current != $total) {
 					$hasnext = true;
 					$album = $albums[$current];
-					$obj = newAlbum($album);
+					$obj = Albumbase::newAlbum($album);
 					$link = $obj->getLink();
 				}
 				break;
